@@ -67,6 +67,11 @@ $notifikasi = $stmt->fetchAll(PDO::FETCH_ASSOC);
     to { opacity: 1; transform: translateX(0); }
 }
 
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
 @keyframes glowBlue {
     0%, 100% { 
         box-shadow: 0 0 15px rgba(96, 165, 250, 0.4);
@@ -130,13 +135,147 @@ body::before {
     z-index: 1;
 }
 
+/* ========== BURGER MENU BUTTON ========== */
+.burger-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.25), rgba(168, 85, 247, 0.2));
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(96, 165, 250, 0.3);
+    border-radius: 12px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(96, 165, 250, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.burger-menu span {
+    width: 25px;
+    height: 3px;
+    background: #60a5fa;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.burger-menu:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 40px rgba(96, 165, 250, 0.5);
+}
+
+.burger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+}
+
+.burger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* ========== SIDEBAR MENU ========== */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 280px;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(96, 165, 250, 0.2);
+    box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+    transition: left 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 1000;
+    padding: 80px 20px 20px 20px;
+    overflow-y: auto;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+}
+
+.sidebar-header h3 {
+    color: #60a5fa;
+    font-weight: 800;
+    font-size: 1.5rem;
+    text-shadow: 0 0 15px rgba(96, 165, 250, 0.6);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 10px;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    color: #cbd5e1;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.sidebar-menu a i {
+    font-size: 1.2rem;
+    width: 25px;
+    text-align: center;
+}
+
+.sidebar-menu a:hover {
+    background: rgba(96, 165, 250, 0.2);
+    color: #60a5fa;
+    transform: translateX(10px);
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* ========== NAVBAR FUTURISTIK ========== */
 .navbar {
     background: rgba(15, 23, 42, 0.75) !important;
     backdrop-filter: blur(20px) saturate(180%);
     border-bottom: 1px solid rgba(96, 165, 250, 0.2);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    animation: slideInLeft 0.8s ease;
+    animation: slideInRight 0.8s ease;
 }
 
 .navbar-brand {
@@ -380,6 +519,33 @@ body.light::before {
         radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 50%);
 }
 
+body.light .burger-menu {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(168, 85, 247, 0.15));
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+body.light .burger-menu span {
+    background: #3b82f6;
+}
+
+body.light .sidebar {
+    background: rgba(255, 255, 255, 0.95);
+    border-right: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+body.light .sidebar-header h3 {
+    color: #3b82f6;
+}
+
+body.light .sidebar-menu a {
+    color: #475569;
+}
+
+body.light .sidebar-menu a:hover {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
 body.light .navbar {
     background: rgba(255, 255, 255, 0.8) !important;
     border-bottom: 1px solid rgba(59, 130, 246, 0.2);
@@ -469,13 +635,24 @@ body.light .col-md-4:nth-child(3) .card-title {
 }
 
 /* ========== RESPONSIVE ========== */
+@media (max-width: 992px) {
+    .navbar .navbar-nav {
+        display: none !important;
+    }
+}
+
 @media (max-width: 768px) {
     h2.fw-bold {
-        font-size: 2rem !important;
+        font-size: 1.8rem !important;
+        margin-top: 10px !important;
+    }
+    
+    .container > p {
+        font-size: 1rem;
     }
     
     .theme-toggle {
-        top: 70px;
+        top: 20px;
         right: 15px;
     }
     
@@ -487,6 +664,47 @@ body.light .col-md-4:nth-child(3) .card-title {
     
     .card {
         padding: 20px;
+    }
+    
+    .card-title {
+        font-size: 1.2rem !important;
+    }
+    
+    .card p {
+        font-size: 0.95rem;
+    }
+    
+    .burger-menu {
+        top: 15px;
+        left: 15px;
+    }
+    
+    .sidebar {
+        width: 260px;
+    }
+}
+
+@media (max-width: 576px) {
+    h2.fw-bold {
+        font-size: 1.5rem !important;
+    }
+    
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .card {
+        padding: 15px;
+    }
+    
+    .card-title {
+        font-size: 1.1rem !important;
+    }
+    
+    .sidebar {
+        width: 240px;
+        left: -240px;
     }
 }
 
@@ -502,6 +720,30 @@ body.light .col-md-4:nth-child(3) .card-title {
 </head>
 
 <body>
+
+<!-- BURGER MENU BUTTON -->
+<div class="burger-menu" id="burgerMenu">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h3>⚡ E-Station</h3>
+    </div>
+    <ul class="sidebar-menu">
+        <li><a href="profile.php"><i class="fas fa-user"></i> Profil Saya</a></li>
+        <li><a href="search_location.php"><i class="fas fa-map-marked-alt"></i> Cari Lokasi</a></li>
+        <li><a href="transaction_history.php"><i class="fas fa-history"></i> Riwayat Transaksi</a></li>
+        <li><a href="station_detail.php"><i class="fas fa-charging-station"></i> Detail Stasiun</a></li>
+        <li><a href="../auth/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+</div>
+
+<!-- SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 <!-- TOMBOL TOGGLE TEMA -->
 <div class="theme-toggle">
@@ -584,11 +826,11 @@ body.light .col-md-4:nth-child(3) .card-title {
 
 </div>
 
-<!-- SCRIPT TOGGLE TEMA -->
+<!-- SCRIPT -->
 <script>
+// Toggle Tema
 const toggleButton = document.getElementById("toggleTheme");
 
-// Load tema tersimpan
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme === "light") {
     document.body.classList.add("light");
@@ -597,13 +839,48 @@ if (savedTheme === "light") {
     toggleButton.textContent = "🌙";
 }
 
-// Toggle tema
 toggleButton.addEventListener("click", () => {
     document.body.classList.toggle("light");
     
     const isLight = document.body.classList.contains("light");
     toggleButton.textContent = isLight ? "☀️" : "🌙";
     localStorage.setItem("theme", isLight ? "light" : "dark");
+});
+
+// Burger Menu Toggle
+const burgerMenu = document.getElementById("burgerMenu");
+const sidebar = document.getElementById("sidebar");
+const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+burgerMenu.addEventListener("click", () => {
+    burgerMenu.classList.toggle("active");
+    sidebar.classList.toggle("active");
+    sidebarOverlay.classList.toggle("active");
+});
+
+sidebarOverlay.addEventListener("click", () => {
+    burgerMenu.classList.remove("active");
+    sidebar.classList.remove("active");
+    sidebarOverlay.classList.remove("active");
+});
+
+// Close sidebar when clicking a link
+const sidebarLinks = document.querySelectorAll(".sidebar-menu a");
+sidebarLinks.forEach(link => {
+    link.addEventListener("click", () => {
+        burgerMenu.classList.remove("active");
+        sidebar.classList.remove("active");
+        sidebarOverlay.classList.remove("active");
+    });
+});
+
+// Close sidebar on ESC key
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && sidebar.classList.contains("active")) {
+        burgerMenu.classList.remove("active");
+        sidebar.classList.remove("active");
+        sidebarOverlay.classList.remove("active");
+    }
 });
 </script>
 
